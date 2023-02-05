@@ -1,39 +1,60 @@
-const sliderArrow = document.querySelectorAll('.slider__arrow');
-const sliderItem = document.querySelectorAll('.slider__item');
-const sliderDot = document.querySelectorAll('.slider__dot');
+function prev() {
 
+  let showSlideNumber = sliderItem.findIndex((number, index, arr) => arr[index].classList.contains('slider__item_active') === true);
 
-let showSlideNumber = 0;
-const showSlidLength = sliderItem.length;
+  sliderItem[showSlideNumber].classList.remove('slider__item_active');
+  sliderDot[showSlideNumber].classList.remove('slider__dot_active');
 
-for (let index = 0; index < sliderArrow.length; index++) {
+  showSlideNumber--;
 
-  sliderArrow.item(index).onclick = () => {
-    sliderItem.item(showSlideNumber).className = 'slider__item';
-    sliderDot.item(showSlideNumber).className = 'slider__dot';
-  
-    if (sliderArrow.item(index).className === 'slider__arrow slider__arrow_next') {
-  
-      showSlideNumber ++;
-      if (showSlideNumber > showSlidLength - 1) {
-        showSlideNumber = 0;
-      }
+  if (showSlideNumber < 0) {
+    showSlideNumber = sliderItem.length - 1;
+  }
 
-      sliderItem.item(showSlideNumber).className = 'slider__item slider__item_active';
-      sliderDot.item(showSlideNumber).className = 'slider__dot slider__dot_active';
-  
-    } else if (sliderArrow.item(index).className === 'slider__arrow slider__arrow_prev') {
-  
-      showSlideNumber--;
-      if (showSlideNumber < 0) {
-        showSlideNumber = showSlidLength - 1;
-      }
-  
-      sliderItem.item(showSlideNumber).className = 'slider__item slider__item_active';
-      sliderDot.item(showSlideNumber).className = 'slider__dot slider__dot_active';
-  
-    }
-  } ;
+  sliderItem[showSlideNumber].classList.add('slider__item_active');
+  sliderDot[showSlideNumber].classList.add('slider__dot_active');
 
 }
 
+function next() {
+
+  let showSlideNumber = sliderItem.findIndex((number, index, arr) => arr[index].classList.contains('slider__item_active') === true);
+
+  sliderItem[showSlideNumber].classList.remove('slider__item_active');
+  sliderDot[showSlideNumber].classList.remove('slider__dot_active');
+
+  showSlideNumber++;
+
+  if (showSlideNumber > sliderItem.length - 1) {
+    showSlideNumber = 0;
+  }
+
+  sliderItem[showSlideNumber].classList.add('slider__item_active');
+  sliderDot[showSlideNumber].classList.add('slider__dot_active');
+
+}
+
+const sliderItem = [...document.querySelectorAll('.slider__item')];
+const sliderDot = [...document.querySelectorAll('.slider__dot')];
+
+const prevBtn = document.querySelector('.slider__arrow_prev');
+const nextBtn = document.querySelector('.slider__arrow_next');
+
+prevBtn.onclick = prev;
+nextBtn.onclick = next;
+
+for (let i in sliderDot) {
+
+  sliderDot[i].onclick = () => {
+
+    let showSlideNumber = sliderItem.findIndex((number, index, arr) => arr[index].classList.contains('slider__item_active') === true);
+
+    sliderItem[showSlideNumber].classList.remove('slider__item_active');
+    sliderDot[showSlideNumber].classList.remove('slider__dot_active');
+
+    sliderItem[i].classList.add('slider__item_active');
+    sliderDot[i].classList.add('slider__dot_active');
+
+  };
+
+}
