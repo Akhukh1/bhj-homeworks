@@ -1,32 +1,25 @@
-const menuLink = document.querySelectorAll('.menu__link');
-const menuItem = document.querySelectorAll('.menu__item');
+const menuSub = [...document.querySelectorAll('.menu_sub')];
 
-let arrActiv = [];
+for (let index in menuSub) {
 
-for (let index in menuLink) {
-  let menuActivUrl = menuItem.item(index).querySelector('.menu');
+  let menuSubUrl = menuSub[index].closest('.menu__item');
 
-  if (menuActivUrl) {
-    arrActiv.push(menuActivUrl);
-  }
+  menuSubUrl.onclick = () => {
 
-  let menuActiv = menuLink.item(index).closest('.menu__item');
-
-  let menuActivParent = menuActiv.querySelector('.menu__item');
-
-  menuLink.item(index).onclick = () => {
-
-    if (menuActivParent.className) {
-
-      for (let i in arrActiv) {
-        arrActiv[i].className = 'menu menu_sub';
+    if (menuSub[index].classList.contains('menu_active')) {
+      menuSub[index].classList.remove('menu_active');
+    } else {
+      for (let i in menuSub) {
+        if (menuSub[i].classList.contains('menu_active')) {
+          menuSub[i].classList.remove('menu_active');
+        }
       }
-     
-      menuActivUrl.className = 'menu menu_sub menu_active';
-
-      return false;
+      menuSub[index].classList.add('menu_active');
     }
 
+    return false;
   }
   
 }
+
+
