@@ -1,18 +1,30 @@
-function prev() {
+function showSlide(numberSlide) {
 
   let showSlideNumber = sliderItem.findIndex((number, index, arr) => arr[index].classList.contains('slider__item_active') === true);
 
   sliderItem[showSlideNumber].classList.remove('slider__item_active');
   sliderDot[showSlideNumber].classList.remove('slider__dot_active');
 
-  showSlideNumber--;
-
-  if (showSlideNumber < 0) {
-    showSlideNumber = sliderItem.length - 1;
+  if (numberSlide > sliderItem.length - 1) {
+    numberSlide = 0;
   }
 
-  sliderItem[showSlideNumber].classList.add('slider__item_active');
-  sliderDot[showSlideNumber].classList.add('slider__dot_active');
+  if (numberSlide < 0) {
+    numberSlide = sliderItem.length - 1;
+  }
+
+  sliderItem[numberSlide].classList.add('slider__item_active');
+  sliderDot[numberSlide].classList.add('slider__dot_active');
+
+}
+
+function prev() {
+
+  let showSlideNumber = sliderItem.findIndex((number, index, arr) => arr[index].classList.contains('slider__item_active') === true);
+
+  showSlideNumber--;
+
+  showSlide(showSlideNumber);
 
 }
 
@@ -20,17 +32,9 @@ function next() {
 
   let showSlideNumber = sliderItem.findIndex((number, index, arr) => arr[index].classList.contains('slider__item_active') === true);
 
-  sliderItem[showSlideNumber].classList.remove('slider__item_active');
-  sliderDot[showSlideNumber].classList.remove('slider__dot_active');
-
   showSlideNumber++;
 
-  if (showSlideNumber > sliderItem.length - 1) {
-    showSlideNumber = 0;
-  }
-
-  sliderItem[showSlideNumber].classList.add('slider__item_active');
-  sliderDot[showSlideNumber].classList.add('slider__dot_active');
+  showSlide(showSlideNumber)
 
 }
 
@@ -44,17 +48,7 @@ prevBtn.onclick = prev;
 nextBtn.onclick = next;
 
 for (let i in sliderDot) {
-
   sliderDot[i].onclick = () => {
-
-    let showSlideNumber = sliderItem.findIndex((number, index, arr) => arr[index].classList.contains('slider__item_active') === true);
-
-    sliderItem[showSlideNumber].classList.remove('slider__item_active');
-    sliderDot[showSlideNumber].classList.remove('slider__dot_active');
-
-    sliderItem[i].classList.add('slider__item_active');
-    sliderDot[i].classList.add('slider__dot_active');
-
+    showSlide(i);
   };
-
 }
