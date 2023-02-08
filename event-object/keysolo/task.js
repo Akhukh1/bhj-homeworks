@@ -17,6 +17,20 @@ class Game {
   }
 
   registerEvents() {
+
+    document.addEventListener('keyup',(e) => {
+
+      const symbolCurrent = document.querySelector('.symbol_current');
+  
+      if (e.key === symbolCurrent.textContent) {
+        this.success();
+      } else {
+        this.fail();
+      }
+ 
+    })
+
+
     /*
       TODO:
       Написать обработчик события, который откликается
@@ -28,6 +42,7 @@ class Game {
   }
 
   success() {
+
     if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
     this.currentSymbol.classList.add('symbol_correct');
     this.currentSymbol = this.currentSymbol.nextElementSibling;
@@ -45,6 +60,7 @@ class Game {
   }
 
   fail() {
+
     if (++this.lossElement.textContent === 5) {
       alert('Вы проиграли!');
       this.reset();
