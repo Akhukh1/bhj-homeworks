@@ -20,9 +20,7 @@ class Game {
 
     document.addEventListener('keyup',(e) => {
 
-      const symbolCurrent = document.querySelector('.symbol_current');
-  
-      if (e.key === symbolCurrent.textContent) {
+      if (e.key === this.currentSymbol.textContent) {
         this.success();
       } else {
         this.fail();
