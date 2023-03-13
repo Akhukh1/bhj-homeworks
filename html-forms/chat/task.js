@@ -57,7 +57,7 @@ let intervalTiime = setTimeout(() => {
 
 chatWidgetInput.addEventListener('keyup', (e) => {
 
-  if (e.key === 'Enter' && chatWidgetInput.value) {
+  if (e.key === 'Enter' && chatWidgetInput.value.trim()) {
 
     clearTimeout(intervalTiime);
 
